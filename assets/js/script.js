@@ -1,7 +1,12 @@
+//global variables
 var formE1 = document.querySelector("#task-form");
 var tasksToDoE1 = document.querySelector("#tasks-to-do");
+var pageContentE1 = document.querySelector("#page-content");
+
 var taskIdCounter = 0;
 
+
+//form events
 var taskFormHandler = function() {
     event.preventDefault();
 
@@ -19,7 +24,7 @@ var taskFormHandler = function() {
     formE1.reset();
     createTaskE1(taskDataObj);
     
-}
+};
 
 var createTaskE1 = function(taskDataObj) {
     //create list item
@@ -43,7 +48,7 @@ var createTaskE1 = function(taskDataObj) {
     tasksToDoE1.appendChild(listItemE1);
 
     taskIdCounter++;
-}
+};
 
 var createTaskActions = function(taskID) {
     //create div to hold buttons
@@ -86,7 +91,44 @@ var createTaskActions = function(taskID) {
     
 
     return actionContainerE1;
-}
+};
 
 formE1.addEventListener("submit", taskFormHandler);
+
+//pageContent Events
+var taskButtonHandler = function(event) {
+    var targetE1 = event.target;
+
+    if (targetE1.matches(".edit-btn")) {
+        var taskId = event.target.getAttribute("data-task-id");
+        editTask(taskId);
+    }
+
+    if (targetE1.matches(".delete-btn")) {
+        var taskId = event.target.getAttribute("data-task-id");
+        deleteTask(taskId);
+    }
+
+};
+
+var editTask = function(taskId) {
+    var taskSelected = document.querySelector(".task-item[data-task-id='" + taskId + "'");
+    
+    //get content from task name and type
+    var taskName = taskSelected.querySelector("h3.task-name").textContent;
+    var taskType = taskSelected.querySelector("span.task-type").textContent;
+
+    //apply content to form
+    document.querySelector("input[name='task-name']").value = taskName;
+    document.querySelector("select[name='task-type']").value = taskType;
+    document.querySelector("#save-task").textContent = "Save Task";
+    formE1.setAttribute("data-task-id", taskId);
+};
+
+var deleteTask = function(taskId) {
+    var taskSelected = document.querySelector(".task-item[data-task-id='" + taskId + "'");
+    taskSelected.remove();
+};
+
+pageContentE1.addEventListener("click", taskButtonHandler);
 
