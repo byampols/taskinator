@@ -16,7 +16,7 @@ A simple task organizer for a developer. It allows the creation, editing, and de
 
 ## Usage
 
-[Taskinator](/assets/images/screenshot.png)
+[Taskinator](/assets/images/taskinator.jpg)
 
 * To use the site, type in a task name, then pick the task type from the dropdown. Then press "add task."
 * When the task appears, you can edit it, delete it, or move it into "tasks in progress" or "tasks completed" (or back if you've already moved it).
